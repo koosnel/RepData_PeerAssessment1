@@ -10,6 +10,8 @@ output:
 
 ## Loading and preprocessing the data
 
+NOTE TO REVIEWERS:  The plot image files are located under: PA1_template_files/figure-html
+
 For preprocessing purposes, the data is read into the variable `steps` and a factor is created
 for the date.
 

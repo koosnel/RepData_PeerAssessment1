@@ -1,9 +1,4 @@
----
-title: 'Reproducible Research: Peer Assessment 1'
-output:
-  html_document:
-    keep_md: yes
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
@@ -11,7 +6,8 @@ output:
 For preprocessing purposes, the data is read into the variable `steps` and a factor is created
 for the date.
 
-```{r, echo=TRUE}
+
+```r
 library(lubridate)
 #preprocessing
 steps<-read.csv("activity.csv")
@@ -23,25 +19,37 @@ steps$date<-factor(steps$date)
 ## What is mean total number of steps taken per day?
 The histogram below illustrate the number of steps per day.
 
-```{r, echo=TRUE}
+
+```r
 steps_pd<-tapply(steps$steps, steps$date, sum, na.rm=TRUE)
 hist(steps_pd)
 ```
 
-On average, `r round(mean(steps_pd),2)` steps are taken per day with a median of `r median(steps_pd)`.
+![plot of chunk unnamed-chunk-2](PA1_template_files/figure-html/unnamed-chunk-2.png) 
+
+On average, 9354.23 steps are taken per day with a median of 10395.
 
 ## What is the average daily activity pattern?
 1.  The graph below plot the average number of steps per interval.
 
-```{r, echo=TRUE}
+
+```r
 steps_pint<-tapply(steps$steps, steps$interval, mean, na.rm=TRUE)
 plot(steps_pint, type="l")
 ```
 
+![plot of chunk unnamed-chunk-3](PA1_template_files/figure-html/unnamed-chunk-3.png) 
+
 2. The interval with the maximum number of steps on average are:
 
-```{r, echo=TRUE}
+
+```r
 which.max(steps_pint)
+```
+
+```
+## 835 
+## 104
 ```
 
 
@@ -50,8 +58,8 @@ which.max(steps_pint)
 
 Missing values are calculated as below:
 
-```{r}
 
+```r
 for (i in levels(steps$interval)) { 
   d<-steps[steps$interval==i,]
   m<-median(d$steps, na.rm=TRUE)
@@ -61,6 +69,10 @@ for (i in levels(steps$interval)) {
 print(sum(is.na(steps$steps)))
 ```
 
-After executing the above lines, the number of NA values are `r sum(is.na(steps$steps))`.
+```
+## [1] 2304
+```
+
+After executing the above lines, the number of NA values are 2304.
 
 ## Are there differences in activity patterns between weekdays and weekends?
